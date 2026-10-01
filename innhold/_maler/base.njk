@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="nb">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{% if title and page.url != "/" %}{{ title }} – {% endif %}{{ nettsted.tittel }}</title>
+	<meta name="description" content="{{ nettsted.beskrivelse }}">
+	<link rel="stylesheet" href="/stil/stil.css">
+</head>
+<body>
+	<header class="topp">
+		<a class="nettstedsnavn" href="/">{{ nettsted.tittel }}</a>
+		<nav class="hovedmeny" aria-label="Hovedmeny">
+			{%- for punkt in nettsted.meny %}
+			{%- set forste = collections[punkt.mappe] | first %}
+			<a href="{{ forste.url if forste else '/' + punkt.mappe + '/' }}"{% if seksjon == punkt.mappe %} aria-current="true"{% endif %}>{{ punkt.tittel }}</a>
+			{%- endfor %}
+		</nav>
+	</header>
+	{{ content | safe }}
+</body>
+</html>

@@ -1,0 +1,47 @@
+# Bygger og publiserer nettsiden på GitHub Pages:
+# - hver gang noe endres i innholdet
+# - hver natt, slik at utløpte aktuelt-saker forsvinner av seg selv
+name: Publiser nettsiden
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "15 0 * * *" # hver natt kl. 01.15/02.15 norsk tid
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  bygg:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - id: pages
+        uses: actions/configure-pages@v5
+      - run: npm ci
+      - run: npx eleventy --pathprefix="${{ steps.pages.outputs.base_path }}"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  publiser:
+    needs: bygg
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

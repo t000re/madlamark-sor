@@ -1,0 +1,90 @@
+# Oppsett for Pages CMS (https://pagescms.org) – et enkelt redigeringsverktøy i nettleseren.
+media:
+  input: innhold/filer
+  output: /filer
+
+content:
+  - name: aktuelt
+    label: Aktuelt
+    type: collection
+    path: innhold/aktuelt
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      fields: [tittel, dato]
+      default:
+        sort: dato
+        order: desc
+    fields:
+      - name: tittel
+        label: Tittel
+        type: string
+        required: true
+      - name: dato
+        label: Dato
+        description: Saken vises på forsiden til og med denne dagen.
+        type: date
+        required: true
+      - name: vis_til
+        label: Vis til (valgfritt)
+        description: Fyll ut hvis saken skal vises lenger enn datoen over.
+        type: date
+      - name: stemning
+        label: Stemning (valgfritt)
+        description: Noe som driver over siden mens saken er åpen.
+        type: select
+        options:
+          values:
+            - value: host
+              label: Høst – blader som blåser forbi
+            - value: var
+              label: Vår – løvetannfrø og villblomster
+      - name: body
+        label: Tekst
+        type: rich-text
+
+  - name: praktisk-informasjon
+    label: Praktisk informasjon til beboere
+    type: collection
+    path: innhold/praktisk-informasjon
+    filename: "{primary}.md"
+    view:
+      fields: [tittel, rekkefolge]
+      default:
+        sort: rekkefolge
+        order: asc
+    fields:
+      - name: tittel
+        label: Tittel
+        type: string
+        required: true
+      - name: rekkefolge
+        label: Plass i menyen
+        description: 1 er øverst.
+        type: number
+      - name: body
+        label: Tekst
+        type: rich-text
+
+  - name: referater
+    label: Møtereferater
+    type: collection
+    path: innhold/referater
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      fields: [tittel, dato]
+      default:
+        sort: dato
+        order: desc
+    fields:
+      - name: tittel
+        label: Tittel
+        description: For eksempel «Styremøte 16. mars 2026».
+        type: string
+        required: true
+      - name: dato
+        label: Møtedato
+        type: date
+        required: true
+      - name: body
+        label: Referat
+        type: rich-text

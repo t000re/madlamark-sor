@@ -1,0 +1,20 @@
+---
+layout: base.njk
+permalink: /
+eleventyImport:
+  collections: ["aktuelt"]
+---
+<main class="forside">
+	<h1 class="aktuelt-overskrift">Aktuelt</h1>
+	{%- for sak in collections.aktuelt %}
+	<details class="aktuelt-sak" id="{{ sak.page.fileSlug }}"{% if sak.data.stemning %} data-stemning="{{ sak.data.stemning }}"{% endif %}>
+		<summary>{% if sak.data.dato %}<span>{{ sak.data.dato | norskDato }}</span>{% endif %}{{ sak.data.title }}</summary>
+		<div class="innhold">
+			{{ sak.content | safe }}
+		</div>
+	</details>
+	{%- else %}
+	<p class="aktuelt-tom">Ingenting akkurat nå.</p>
+	{%- endfor %}
+</main>
+<script src="/skript/stemning.js" defer></script>

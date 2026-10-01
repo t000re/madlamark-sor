@@ -1,0 +1,280 @@
+/* Velforeningen Madlamark sør
+   Farger, skrift og størrelser styres av variablene rett under. */
+
+:root {
+	--bakgrunn: #f2f2e6;
+	--oliven: #867f17;   /* navnet på velforeningen og undermeny */
+	--rust: #a75235;     /* hovedmeny */
+	--oransje: #f46012;  /* aktuelt */
+	--gronn: #435d28;    /* brødtekst */
+
+	--skrift: "Akkurat", "Akkurat Std", "Inter", system-ui, sans-serif;
+	--stor: 28px;        /* hovedmeny og aktuelt */
+	--middels: 19px;     /* undermeny og mellomtitler */
+	--liten: 16px;       /* brødtekst */
+
+	--linje: rgb(67 93 40 / 0.25); /* streker i tabeller */
+
+	--marg: 10px;
+	--venstre: 446px;    /* bredden på venstre kolonne */
+	--tekstbredde: 512px;
+}
+
+/* Reserveskrift for de som ikke har Akkurat installert.
+   Når foreningen har en nettlisens for Akkurat, legg filene i stil/fonter/
+   og legg til en @font-face for «Akkurat» her. */
+@font-face {
+	font-family: "Inter";
+	src: url("fonter/inter.woff2") format("woff2");
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Inter";
+	src: url("fonter/inter-kursiv.woff2") format("woff2");
+	font-weight: 400 700;
+	font-style: italic;
+	font-display: swap;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+	margin: 0;
+	padding: var(--marg) var(--marg) 100px;
+	background: var(--bakgrunn);
+	color: var(--gronn);
+	font-family: var(--skrift);
+	font-size: var(--liten);
+	line-height: 1.25;
+	-webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-underline-offset: 0.15em; text-decoration-thickness: 1px; }
+
+/* Blader, frø og blomster som driver over siden (se skript/stemning.js) */
+.stemning {
+	position: fixed;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 10;
+}
+
+/* ---------- Toppen ---------- */
+
+.topp,
+.hoveddel {
+	display: grid;
+	grid-template-columns: var(--venstre) minmax(0, var(--tekstbredde));
+}
+
+.topp {
+	grid-template-columns: var(--venstre) 1fr;
+	font-size: var(--stor);
+	line-height: 1.2;
+}
+
+.nettstedsnavn { color: var(--oliven); text-decoration: none; }
+
+.hovedmeny { display: flex; flex-wrap: wrap; gap: 0 31px; }
+.hovedmeny a { color: var(--rust); text-decoration: none; }
+.hovedmeny a[aria-current],
+.hovedmeny a:hover { text-decoration: underline; }
+
+/* ---------- Forsiden ---------- */
+
+.forside {
+	margin-left: var(--venstre);
+	padding-top: 45px;
+	color: var(--oransje);
+	font-size: var(--stor);
+	line-height: 1.3;
+}
+
+.aktuelt-overskrift {
+	margin: 0 0 15px;
+	font-size: inherit;
+	font-weight: normal;
+	text-transform: uppercase;
+}
+
+.aktuelt-sak + .aktuelt-sak { margin-top: 20px; }
+.aktuelt-sak summary { cursor: pointer; list-style: none; }
+.aktuelt-sak summary::-webkit-details-marker { display: none; }
+.aktuelt-sak summary:hover,
+.aktuelt-sak[open] summary { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+.aktuelt-sak summary span { display: block; }
+.aktuelt-sak .innhold {
+	max-width: var(--tekstbredde);
+	padding: 20px 0 10px;
+	color: var(--gronn);
+	font-size: var(--liten);
+	line-height: 1.25;
+}
+.aktuelt-tom { margin: 0; }
+
+/* ---------- Undersider ---------- */
+
+.hoveddel { margin-top: 82px; }
+
+.undermeny {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 10px;
+	padding-right: 30px;
+	color: var(--oliven);
+	font-size: var(--middels);
+}
+.undermeny a { text-decoration: none; }
+.undermeny a[aria-current],
+.undermeny a:hover { text-decoration: underline; }
+
+/* Eldre år i undermenyen, som kan åpnes og lukkes */
+.aargruppe-sider { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; margin: 10px 0 15px; padding-left: 15px; }
+.aargruppe summary { cursor: pointer; list-style: none; }
+.aargruppe summary::-webkit-details-marker { display: none; }
+
+.innhold { min-width: 0; padding-top: 2px; }
+.innhold > :first-child { margin-top: 0; }
+
+.innhold h1,
+.innhold h2,
+.innhold h3,
+.innhold h4 {
+	margin: 1.9em 0 1em;
+	font-size: var(--middels);
+	font-weight: normal;
+	line-height: 1.25;
+}
+.innhold h2 + h3,
+.innhold h3 + h4 { margin-top: 0; }
+/* Tittelen på siden, øverst i innholdet */
+.innhold .side-tittel { margin: 0 0 1.6em; }
+.innhold .side-tittel + * { margin-top: 0; }
+
+.innhold h1 strong,
+.innhold h2 strong,
+.innhold h3 strong { font-weight: inherit; }
+
+.innhold p,
+.innhold ul,
+.innhold ol,
+.innhold table,
+.innhold blockquote,
+.innhold figure { margin: 0 0 1.1em; }
+
+.innhold ul,
+.innhold ol { padding-left: 22px; }
+.innhold li > ul,
+.innhold li > ol { margin: 0; }
+
+.innhold strong { font-weight: 600; }
+
+.innhold img { display: block; max-width: 100%; height: auto; margin: 0 0 1.1em; }
+
+.innhold hr { margin: 1.6em 0; border: 0; border-top: 1px solid currentColor; opacity: 0.3; }
+
+.innhold blockquote { margin-left: 0; padding-left: 15px; border-left: 1px solid currentColor; }
+
+.innhold table { width: 100%; border-collapse: collapse; }
+.innhold th,
+.innhold td {
+	padding: 5px 10px 5px 0;
+	border-bottom: 1px solid var(--linje);
+	text-align: left;
+	vertical-align: top;
+	font-weight: normal;
+}
+.innhold thead th { border-bottom-color: currentColor; }
+
+/* ---------- Fast meny på store skjermer ----------
+   Toppen og undermenyen blir stående, og bare innholdet ruller. */
+
+@media (min-width: 1100px) {
+	:root {
+		--topphoyde: calc(var(--marg) + 1.2 * var(--stor)); /* toppmarg + én linje i toppen */
+		--undermeny-topp: calc(var(--topphoyde) + 82px);
+	}
+
+	.topp {
+		position: sticky;
+		top: 0;
+		z-index: 5;
+		margin-top: calc(-1 * var(--marg));
+		padding: var(--marg) 0 30px; /* en ren stripe under toppen som innholdet forsvinner bak */
+		background: var(--bakgrunn);
+	}
+
+	.hoveddel { margin-top: 52px; } /* 82px til sammen, som før */
+
+	/* Tittelen blir liggende øverst i innholdskolonnen mens teksten ruller under den.
+	   Bakgrunnen strekker seg opp til stripen under toppen, så ingenting skimtes over. */
+	.innhold .side-tittel {
+		position: sticky;
+		top: calc(var(--topphoyde) + 30px);
+		z-index: 4;
+		margin-top: -52px;
+		padding: 52px 0 1.2em;
+		margin-bottom: 0.4em;
+		background: var(--bakgrunn);
+	}
+
+	.undermeny {
+		position: sticky;
+		top: var(--undermeny-topp);
+		align-self: start;
+		max-height: calc(100vh - var(--undermeny-topp) - 20px);
+		overflow-y: auto;
+		scrollbar-width: thin;
+	}
+}
+
+/* ---------- Mobil ---------- */
+
+@media (max-width: 980px) {
+	:root {
+		--stor: 22px;
+		--middels: 17px;
+	}
+
+	body { padding: 12px 16px 60px; }
+
+	.topp,
+	.hoveddel { display: block; }
+
+	.hovedmeny {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 4px;
+		margin-top: 24px;
+	}
+
+	.forside { margin-left: 0; padding-top: 40px; }
+
+	.hoveddel { margin-top: 40px; }
+
+	.undermeny {
+		gap: 8px;
+		margin-bottom: 40px;
+		padding-right: 0;
+	}
+
+	.innhold { font-size: 16px; line-height: 1.35; }
+
+	/* Bare tittelen står fast øverst når man ruller, resten ruller bort */
+	.innhold .side-tittel {
+		position: sticky;
+		top: 0;
+		z-index: 4;
+		margin: 0 -16px 0.8em;
+		padding: 14px 16px 12px;
+		background: var(--bakgrunn);
+	}
+	.innhold table { display: block; overflow-x: auto; }
+}

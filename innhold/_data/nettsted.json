@@ -1,0 +1,8 @@
+{
+	"tittel": "Velforeningen Madlamark sør",
+	"beskrivelse": "En digital oppslagstavle for beboerne i velforeningen Madlamark sør.",
+	"meny": [
+		{ "tittel": "Praktisk informasjon til beboere", "mappe": "praktisk-informasjon", "sortering": "rekkefolge" },
+		{ "tittel": "Møtereferater", "mappe": "referater", "sortering": "dato" }
+	]
+}

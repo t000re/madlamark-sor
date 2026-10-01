@@ -1,0 +1,33 @@
+---
+layout: base.njk
+---
+{%- set sider = collections[seksjon] -%}
+{%- set oppsett = seksjon | seksjonsoppsett -%}
+{%- macro lenke(side) -%}
+<a href="{{ side.url }}"{% if side.url == page.url %} aria-current="page"{% endif %}>{{ side.data.title }}</a>
+{%- endmacro -%}
+<div class="hoveddel">
+	<nav class="undermeny" aria-label="Undermeny">
+		{%- if oppsett and oppsett.sortering == "dato" %}
+		{#- Sider med dato grupperes på år, som kan åpnes og lukkes. Året man er inne i, er åpent. #}
+		{%- for gruppe in sider | grupperPaAar(page.url) %}
+		<details class="aargruppe"{% if gruppe.aktiv %} open{% endif %}>
+			<summary>{{ gruppe.aar }}</summary>
+			<div class="aargruppe-sider">
+				{%- for side in gruppe.sider %}
+				{{ lenke(side) }}
+				{%- endfor %}
+			</div>
+		</details>
+		{%- endfor %}
+		{%- else %}
+		{%- for side in sider %}
+		{{ lenke(side) }}
+		{%- endfor %}
+		{%- endif %}
+	</nav>
+	<main class="innhold">
+		<h1 class="side-tittel">{{ title }}</h1>
+		{{ content | safe }}
+	</main>
+</div>
