@@ -243,15 +243,25 @@ a { color: inherit; text-underline-offset: 0.15em; text-decoration-thickness: 1p
 		--middels: 17px;
 	}
 
-	body { padding: 12px 16px 60px; }
+	body { padding: 0 16px 60px; }
 
 	.topp,
 	.hoveddel { display: block; }
 
+	/* Toppen står fast øverst, og tittelen legger seg rett under den */
+	.topp {
+		position: sticky;
+		top: 0;
+		z-index: 5;
+		margin: 0 -16px;
+		padding: 12px 16px 16px;
+		background: var(--bakgrunn);
+	}
+
 	.hovedmeny {
 		flex-direction: column;
 		align-items: flex-start;
-		gap: 4px;
+		gap: 12px;
 		margin-top: 24px;
 	}
 
@@ -260,17 +270,19 @@ a { color: inherit; text-underline-offset: 0.15em; text-decoration-thickness: 1p
 	.hoveddel { margin-top: 40px; }
 
 	.undermeny {
-		gap: 8px;
+		gap: 14px;
 		margin-bottom: 40px;
 		padding-right: 0;
 	}
 
+	.aargruppe-sider { gap: 14px; margin: 14px 0 16px; }
+
 	.innhold { font-size: 16px; line-height: 1.35; }
 
-	/* Bare tittelen står fast øverst når man ruller, resten ruller bort */
+	/* Tittelen står fast rett under toppen når man ruller */
 	.innhold .side-tittel {
 		position: sticky;
-		top: 0;
+		top: var(--topp-hoyde, 140px);
 		z-index: 4;
 		margin: 0 -16px 0.8em;
 		padding: 14px 16px 12px;
