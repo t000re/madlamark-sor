@@ -2,12 +2,6 @@
 tittel: Styremøte 30. september 2026
 dato: 2026-09-30
 ---
----
-
-tittel: Styremøte 30. oktober 2026
-
----
-
 ### Til stede
 
 Tore, Thea, Lisa og Stine
@@ -15,11 +9,8 @@ Tore, Thea, Lisa og Stine
 ### Agenda
 
 1. Sette dato og plan for dugnad
-
 2. Tilbakemeldinger på plenklipping og grøntområdeprosjekt
-
 3. Beskjæring av trær utenfor JP1
-
 4. Eventuelt
 
 ### 1. Dugnad
