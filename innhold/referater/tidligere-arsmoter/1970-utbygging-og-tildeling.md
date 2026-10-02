@@ -1,11 +1,7 @@
 ---
-title: "Utbygging og tildeling av husene"
-year: 1970
-date: 1970-03-14
-tags: [historikk, utbygging]
-kilde: "Årsmøter – innkalling og referat 1971–2020 (skannet PDF)"
+tittel: Utbygging og tildeling
+dato: 1970-03-14
 ---
-
 # Utbygging og tildeling av husene (1970)
 
 Før velforeningen ble stiftet: Bolig-Byggs liste over hvem som ble tildelt hus på Madlamarka-Sør (14. mars 1970), og Mesterhus Stavanger A/L sin byggebeskrivelse for feltet (2. november 1970).
@@ -243,7 +239,6 @@ Rett til forandringer forbeholdes.
 - Sanitærutstyr og rørleggerarbeid leveres av: Aut. rørlegger Gunnar Larsen, Sandnes.
 - Elektriske installasjoner leveres av: Pettersen & Sleveland Elektro A/S, Stavanger.
 - Malerarbeider leveres av: Malermester Kjell Olsen, Madla.
-
 - Gulvbelegg leveres av: *[ikke utfylt]*
 - Utenomhusanlegg, friarealer, gartnerarbeide leveres av: Søndenås Plantesalg, Sandnes
 - Grunnarbeidene, betongarbeider, tekniske hovedanlegg, gater, felles friarealer, leveres av: A. Kruse Smidt.
