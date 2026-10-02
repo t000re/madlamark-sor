@@ -89,8 +89,13 @@ a { color: inherit; text-underline-offset: 0.15em; text-decoration-thickness: 1p
 /* ---------- Forsiden ---------- */
 
 .forside {
+	--forside-topp: 45px;
+	--knapp: 1.25; /* størrelsen på plakatsaker i listen, i forhold til skissen */
+	/* Listen og plakatene ligger i samme rute, så en plakat kan legge seg over listen */
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
 	margin-left: var(--venstre);
-	padding-top: 45px;
+	padding-top: var(--forside-topp);
 	color: var(--oransje);
 	font-size: var(--stor);
 	line-height: 1.3;
@@ -117,6 +122,129 @@ a { color: inherit; text-underline-offset: 0.15em; text-decoration-thickness: 1p
 	line-height: 1.25;
 }
 .aktuelt-tom { margin: 0; }
+
+.forside > .aktuelt,
+.forside > .plakat { grid-area: 1 / 1; }
+.aktuelt { transition: opacity 0.35s ease, visibility 0.35s; }
+.forside.plakat-apen > .aktuelt { opacity: 0; visibility: hidden; }
+
+/* En plakatsak i listen: dato over tittel, som små bilder */
+.plakat-sak { margin-top: calc(20px * var(--knapp)); }
+.plakat-knapp {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: calc(2px * var(--knapp));
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: inherit;
+	font: inherit;
+	text-align: left;
+	cursor: pointer;
+}
+.plakat-knapp:focus { outline: none; }
+.plakat-knapp:focus-visible { outline: 1px dashed var(--oransje); outline-offset: 6px; }
+.knapp-dato { display: block; width: calc(101px * var(--knapp)); }
+.knapp-tittel { display: block; width: calc(130px * var(--knapp)); }
+.knapp-tekst span { display: block; }
+.plakat-knapp:hover .knapp-tekst { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+.plakat-sak.flyr .knapp-dato,
+.plakat-sak.flyr .knapp-tittel { visibility: hidden; } /* mens bildene flyr til og fra plakaten */
+
+/* Farge når musa holdes over: et eget hoverbilde, eller én høstoransje lagt over i samme form */
+.farge-lag { position: relative; display: block; }
+.farge-lag img { display: block; width: 100%; height: auto; transition: opacity 0.25s ease; }
+.farge-lag .hoverbilde { position: absolute; inset: 0; height: 100%; opacity: 0; }
+.farge-maske::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: var(--oransje);
+	-webkit-mask: var(--maske) center / 100% 100% no-repeat;
+	mask: var(--maske) center / 100% 100% no-repeat;
+	opacity: 0;
+	transition: opacity 0.25s ease;
+}
+.plakat-knapp:is(:hover, :focus-visible) .farge-lag:has(.hoverbilde) > img:first-child { opacity: 0; }
+.plakat-knapp:is(:hover, :focus-visible) .hoverbilde,
+.plakat-knapp:is(:hover, :focus-visible) .farge-maske::after { opacity: 1; }
+
+/* ---------- Plakat på forsiden ----------
+   Delene plasseres i et tenkt rutenett (se _data/plakat.json) som skaleres med
+   plakatens bredde. 1 enhet = plakatbredden / --design-bredde. */
+
+.plakat {
+	--design-bredde: var(--dm-bredde);
+	--design-hoyde: var(--dm-hoyde);
+	--rute: calc(100cqw / var(--design-bredde));
+	position: relative;
+	isolation: isolate; /* delene stables inne i plakaten, aldri over toppmenyen */
+	container-type: inline-size;
+	/* Plakaten bruker hele bredden, også feltet til venstre for listen, og starter rett under toppen */
+	align-self: start;
+	width: min(calc(100% + var(--venstre)), calc(var(--design-bredde) * 1.25px));
+	aspect-ratio: var(--design-bredde) / var(--design-hoyde);
+	margin: calc(-1 * var(--forside-topp)) 0 0 calc(-1 * var(--venstre));
+	touch-action: pan-y pinch-zoom;
+}
+.plakat[hidden] { display: none; }
+
+.plakat-del {
+	--px: var(--dx);
+	--py: var(--dy);
+	--pb: var(--db);
+	position: absolute;
+	left: calc(var(--px) * var(--rute));
+	top: calc(var(--py) * var(--rute));
+	width: calc(var(--pb) * var(--rute));
+	cursor: grab;
+	user-select: none;
+	-webkit-user-select: none;
+	-webkit-touch-callout: none;
+	touch-action: pan-y pinch-zoom;
+	will-change: transform;
+}
+.plakat-del:focus { outline: none; }
+.plakat-del:focus-visible { outline: 1px dashed var(--oliven); outline-offset: 4px; }
+.plakat-del.loftet { cursor: grabbing; }
+.plakat-del img { display: block; width: 100%; height: auto; pointer-events: none; }
+.plakat-del h1,
+.plakat-del p { margin: 0; font-size: inherit; font-weight: inherit; }
+
+/* Når delene er tekst i stedet for bilder */
+.plakat-teksttittel {
+	display: block;
+	color: var(--oransje);
+	font-size: calc(58 * var(--rute));
+	line-height: 0.95;
+	text-transform: uppercase;
+}
+.plakat-tekstdato {
+	display: block;
+	color: var(--oransje);
+	font-size: calc(30 * var(--rute));
+}
+/* Tittel og dato som tekst tar så mye plass som de trenger, ikke bredden fra rutenettet */
+.plakat-del:has(.plakat-teksttittel),
+.plakat-del:has(.plakat-tekstdato) {
+	width: max-content;
+	/* aldri bredere enn det som er igjen til høyre for delen */
+	max-width: calc(100cqw - var(--px) * var(--rute));
+}
+.plakat-tekstdato { white-space: nowrap; }
+.plakat-tekst .innhold { color: var(--gronn); font-size: calc(15 * var(--rute)); }
+
+/* Skjult for øyet, men leses av skjermlesere */
+.skjult {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
 
 /* ---------- Undersider ---------- */
 
@@ -265,7 +393,22 @@ a { color: inherit; text-underline-offset: 0.15em; text-decoration-thickness: 1p
 		margin-top: 24px;
 	}
 
-	.forside { margin-left: 0; padding-top: 40px; }
+	.forside { --forside-topp: 40px; --knapp: 1; margin-left: 0; }
+
+	/* Plakaten får et eget, smalere rutenett på mobil */
+	.plakat {
+		--design-bredde: var(--mobil-bredde);
+		--design-hoyde: var(--mobil-hoyde);
+		width: min(100%, 560px);
+		margin-left: 0;
+	}
+	.plakat-del {
+		--px: var(--mx);
+		--py: var(--my);
+		--pb: var(--mb);
+	}
+	.plakat-teksttittel { font-size: calc(34 * var(--rute)); overflow-wrap: anywhere; }
+	.plakat-tekstdato { font-size: calc(24 * var(--rute)); }
 
 	.hoveddel { margin-top: 40px; }
 

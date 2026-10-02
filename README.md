@@ -13,6 +13,8 @@ innhold/
   _data/nettsted.json      Navnet på siden og hovedmenyen
   stil/stil.css            Farger, skrift og størrelser
   skript/stemning.js       Blader, frø og blomster som driver over siden
+  skript/plakat.js         Flytting av delene på en aktuelt-plakat
+  _data/plakat.json        Hvor delene på en plakat står fra start
 ```
 
 Hver markdown-fil blir én side. Undermenyen til venstre lages automatisk av filene i mappen.
@@ -57,6 +59,36 @@ Med en `stemning` driver det noe over siden mens saken er åpen:
 - `stemning: var` – løvetannfrø og villblomster blåser oppover
 
 Klikker man på et blad, et frø eller en blomst, tar et lite vindpust det med seg i en tilfeldig retning. Alt dette styres av `skript/stemning.js`.
+
+### Aktuelt som plakat
+
+En sak kan vises som en plakat. I Aktuelt-listen står den som et lite dato- og tittelbilde, som får farge når musa holdes over. Klikker man på den, flyr dato og tittel ut til plakaten, og illustrasjonen og teksten vokser fram. Delene kan flyttes rundt med musa (eller ved å holde fingeren på dem på mobil). Et klikk på tittelen eller datoen, eller Esc, lukker plakaten. Legg til ett eller flere bilder i toppen av filen:
+
+```markdown
+---
+tittel: Haustdugnad
+dato: 2026-10-31
+stemning: host
+tittelbilde: /filer/haustdugnad-tittel.svg
+tittelbilde_hover: /filer/haustdugnad-tittel-hover.svg
+datobilde: /filer/haustdugnad-dato.svg
+datobilde_hover: /filer/haustdugnad-dato-hover.svg
+illustrasjon: /filer/haustdugnad-gresskar.webp
+tekstbilde: /filer/haustdugnad-tekst.webp
+---
+
+Teksten fra plakaten, skrevet vanlig. Den leses opp av skjermlesere når tekstbilde er brukt.
+```
+
+Alle bildefeltene er valgfrie. Det som mangler, vises som vanlig tekst i stedet. `tittelbilde_hover` og `datobilde_hover` er de samme bildene i andre farger, og vises når musa holdes over saken i listen. Uten dem blir bildene høstoransje. Har plakaten en `stemning`, blåser bladene mens plakaten er synlig.
+
+Tips til bildene:
+
+- Bruk gjennomsiktig bakgrunn (SVG, PNG eller WebP).
+- Lag dem omtrent tre ganger så store som de skal vises, så de blir skarpe på gode skjermer. Brødteksten bør være minst 750 piksler bred.
+- Hold hvert bilde under ca. 300 KB. Tunge SVG-er med mange streker (for eksempel fargestifttegninger) bør heller lagres som WebP eller PNG.
+
+Hvor delene står når siden lastes, bestemmes i `_data/plakat.json`.
 
 ## Ny side under «Praktisk informasjon til beboere»
 

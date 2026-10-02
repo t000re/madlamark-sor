@@ -4,17 +4,64 @@ permalink: /
 eleventyImport:
   collections: ["aktuelt"]
 ---
+{#- Aktuelt-listen. En sak med bilder (tittelbilde, datobilde, illustrasjon eller tekstbilde) står i listen
+    som en liten tittel og dato. Klikker man på den, åpnes en plakat der delene kan flyttes rundt.
+    Andre saker åpnes og lukkes som vanlig. -#}
+{%- macro del(navn, lukker = false) -%}
+{%- set p = plakat.deler[navn] -%}
+<div class="plakat-del plakat-{{ navn }}" data-del="{{ navn }}" tabindex="0"{% if lukker %} data-lukker role="button"{% endif %} style="--dx: {{ p.x }}; --dy: {{ p.y }}; --db: {{ p.bredde }}; --mx: {{ p.mx }}; --my: {{ p.my }}; --mb: {{ p.mbredde }}">{{ caller() }}</div>
+{%- endmacro -%}
+{#- Et bilde som får farge når musa holdes over: et eget hoverbilde hvis det finnes, ellers én høstoransje -#}
+{%- macro bilde(src, alt, hover) -%}
+<span class="farge-lag{% if not hover %} farge-maske{% endif %}"><img src="{{ src }}" alt="{{ alt }}" draggable="false">{% if hover %}<img class="hoverbilde" src="{{ hover }}" alt="" draggable="false">{% endif %}</span>
+{%- endmacro -%}
 <main class="forside">
-	<h1 class="aktuelt-overskrift">Aktuelt</h1>
-	{%- for sak in collections.aktuelt %}
-	<details class="aktuelt-sak" id="{{ sak.page.fileSlug }}"{% if sak.data.stemning %} data-stemning="{{ sak.data.stemning }}"{% endif %}>
-		<summary>{% if sak.data.dato %}<span>{{ sak.data.dato | norskDato }}</span>{% endif %}{{ sak.data.title }}</summary>
-		<div class="innhold">
-			{{ sak.content | safe }}
+	<div class="aktuelt">
+		<h1 class="aktuelt-overskrift">Aktuelt</h1>
+		{%- for sak in collections.aktuelt %}
+		{%- if sak.data.tittelbilde or sak.data.datobilde or sak.data.illustrasjon or sak.data.tekstbilde %}
+		<div class="aktuelt-sak plakat-sak">
+			<button type="button" class="plakat-knapp" aria-expanded="false" aria-controls="plakat-{{ sak.page.fileSlug }}">
+				{%- if sak.data.tittelbilde %}
+				{%- if sak.data.dato and sak.data.datobilde %}<span class="knapp-dato">{{ bilde(sak.data.datobilde, sak.data.dato | norskDato, sak.data.datobilde_hover) }}</span>{% endif %}
+				<span class="knapp-tittel">{{ bilde(sak.data.tittelbilde, sak.data.title, sak.data.tittelbilde_hover) }}</span>
+				{%- else %}
+				<span class="knapp-tekst">{% if sak.data.dato %}<span>{{ sak.data.dato | norskDato }}</span>{% endif %}{{ sak.data.title }}</span>
+				{%- endif %}
+			</button>
 		</div>
-	</details>
-	{%- else %}
-	<p class="aktuelt-tom">Ingenting akkurat nå.</p>
+		{%- else %}
+		<details class="aktuelt-sak" id="{{ sak.page.fileSlug }}"{% if sak.data.stemning %} data-stemning="{{ sak.data.stemning }}"{% endif %}>
+			<summary>{% if sak.data.dato %}<span>{{ sak.data.dato | norskDato }}</span>{% endif %}{{ sak.data.title }}</summary>
+			<div class="innhold">
+				{{ sak.content | safe }}
+			</div>
+		</details>
+		{%- endif %}
+		{%- else %}
+		<p class="aktuelt-tom">Ingenting akkurat nå.</p>
+		{%- endfor %}
+	</div>
+
+	{%- for sak in collections.aktuelt %}
+	{%- if sak.data.tittelbilde or sak.data.datobilde or sak.data.illustrasjon or sak.data.tekstbilde %}
+	<section class="plakat" id="plakat-{{ sak.page.fileSlug }}" hidden aria-label="{{ sak.data.title }}"{% if sak.data.stemning %} data-stemning="{{ sak.data.stemning }}"{% endif %} style="--dm-bredde: {{ plakat.datamaskin.bredde }}; --dm-hoyde: {{ plakat.datamaskin.hoyde }}; --mobil-bredde: {{ plakat.mobil.bredde }}; --mobil-hoyde: {{ plakat.mobil.hoyde }}">
+		{%- if sak.data.illustrasjon %}
+		{% call del("illustrasjon") %}<img src="{{ sak.data.illustrasjon }}" alt="{{ sak.data.illustrasjon_tekst or '' }}" draggable="false">{% endcall %}
+		{%- endif %}
+		{% call del("tittel", true) %}<h1>{% if sak.data.tittelbilde %}<img src="{{ sak.data.tittelbilde }}" alt="{{ sak.data.title }}" draggable="false">{% else %}<span class="plakat-teksttittel">{{ sak.data.title }}</span>{% endif %}</h1>{% endcall %}
+		{%- if sak.data.dato %}
+		{% call del("dato", true) %}<p>{% if sak.data.datobilde %}<img src="{{ sak.data.datobilde }}" alt="{{ sak.data.dato | norskDato }}" draggable="false">{% else %}<span class="plakat-tekstdato">{{ sak.data.dato | norskDato }}</span>{% endif %}</p>{% endcall %}
+		{%- endif %}
+		{%- if sak.data.tekstbilde %}
+		{#- Teksten fra filen leses opp av skjermlesere, bildet er bare pynt #}
+		{% call del("tekst") %}<img src="{{ sak.data.tekstbilde }}" alt="" draggable="false"><div class="skjult">{{ sak.content | safe }}</div>{% endcall %}
+		{%- else %}
+		{% call del("tekst") %}<div class="innhold">{{ sak.content | safe }}</div>{% endcall %}
+		{%- endif %}
+	</section>
+	{%- endif %}
 	{%- endfor %}
 </main>
+<script src="/skript/plakat.js" defer></script>
 <script src="/skript/stemning.js" defer></script>

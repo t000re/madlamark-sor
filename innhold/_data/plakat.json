@@ -1,0 +1,11 @@
+{
+	"forklaring": "Standardplassering for delene av en aktuelt-plakat. Tallene er i et tenkt rutenett: på datamaskin er plakaten 1004 enheter bred (x, y, bredde), på mobil 375 (mx, my, mbredde). Siden skalerer rutenettet til skjermen.",
+	"datamaskin": { "bredde": 1004, "hoyde": 560 },
+	"mobil": { "bredde": 375, "hoyde": 470 },
+	"deler": {
+		"tittel": { "x": 235, "y": 61, "bredde": 295, "mx": 16, "my": 8, "mbredde": 220 },
+		"dato": { "x": 240, "y": 234, "bredde": 194, "mx": 22, "my": 130, "mbredde": 170 },
+		"illustrasjon": { "x": 593, "y": 78, "bredde": 168, "mx": 240, "my": 0, "mbredde": 120 },
+		"tekst": { "x": 368, "y": 291, "bredde": 245, "mx": 60, "my": 190, "mbredde": 260 }
+	}
+}

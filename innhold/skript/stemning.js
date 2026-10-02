@@ -1,5 +1,5 @@
 // Stemning: når en aktuelt-sak med «stemning: host» eller «stemning: var» er
-// åpen, driver det noen små ting over siden.
+// åpen, eller en plakat med stemning er synlig, driver det noen små ting over siden.
 //
 //  host – lønneblader og bjørkeblader som blåser forbi og faller
 //  var  – løvetannfrø og villblomster som blåser oppover
@@ -15,7 +15,7 @@
 (() => {
 	if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-	const saker = document.querySelectorAll(".aktuelt-sak[data-stemning]");
+	const saker = document.querySelectorAll(".aktuelt-sak[data-stemning], .plakat[data-stemning]");
 	if (!saker.length) return;
 
 	const tilfeldig = (min, maks) => min + Math.random() * (maks - min);
@@ -490,8 +490,12 @@
 		}
 	}
 
+	// Plakater er «åpne» så lenge de er synlige på skjermen
+	const synlige = new Set();
+	const erApen = (sak) => (sak.tagName === "DETAILS" ? sak.open : synlige.has(sak));
+
 	function oppdaterTilstand() {
-		const apne = new Set([...saker].filter((sak) => sak.open).map((sak) => sak.dataset.stemning));
+		const apne = new Set([...saker].filter(erApen).map((sak) => sak.dataset.stemning));
 		for (const navn of apne) {
 			if (!STEMNINGER[navn] || aktive.has(navn)) continue;
 			aktive.add(navn);
@@ -508,6 +512,16 @@
 		}
 	}
 
-	saker.forEach((sak) => sak.addEventListener("toggle", oppdaterTilstand));
+	const synlighet = new IntersectionObserver((endringer) => {
+		for (const { target, isIntersecting } of endringer) {
+			if (isIntersecting) synlige.add(target);
+			else synlige.delete(target);
+		}
+		oppdaterTilstand();
+	});
+	saker.forEach((sak) => {
+		if (sak.tagName === "DETAILS") sak.addEventListener("toggle", oppdaterTilstand);
+		else synlighet.observe(sak);
+	});
 	oppdaterTilstand();
 })();

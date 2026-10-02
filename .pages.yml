@@ -38,6 +38,32 @@ content:
               label: Høst – blader som blåser forbi
             - value: var
               label: Vår – løvetannfrø og villblomster
+      - name: tittelbilde
+        label: Plakat – tittel som bilde (valgfritt)
+        description: Fyller du ut ett eller flere bildefelt, står saken i listen som et lite tittel- og datobilde. Klikker man på den, åpnes en plakat der delene kan flyttes rundt. Det som mangler, vises som vanlig tekst.
+        type: image
+      - name: tittelbilde_hover
+        label: Plakat – tittel i farger når musa holdes over (valgfritt)
+        description: Samme bilde som tittelen, bare i andre farger. Uten dette blir tittelen høstoransje.
+        type: image
+      - name: datobilde
+        label: Plakat – dato som bilde (valgfritt)
+        type: image
+      - name: datobilde_hover
+        label: Plakat – dato i farger når musa holdes over (valgfritt)
+        description: Samme bilde som datoen, bare i andre farger. Uten dette blir datoen høstoransje.
+        type: image
+      - name: illustrasjon
+        label: Plakat – illustrasjon (valgfritt)
+        type: image
+      - name: illustrasjon_tekst
+        label: Plakat – beskrivelse av illustrasjonen (valgfritt)
+        description: Leses opp for blinde og svaksynte, f.eks. «Tegning av et smilende gresskar». La stå tom hvis bildet bare er pynt.
+        type: string
+      - name: tekstbilde
+        label: Plakat – brødtekst som bilde (valgfritt)
+        description: Skriv også teksten i tekstfeltet under, så den kan leses av skjermlesere og søkemotorer.
+        type: image
       - name: body
         label: Tekst
         type: rich-text
