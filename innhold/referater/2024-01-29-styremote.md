@@ -1,7 +1,7 @@
 ---
 tittel: Styremøte 29. januar 2024
+dato: 2026-10-02
 ---
-
 **Tid:** kl. 19.00–20.30
 **Sted:** Jan Anton Stuen
 **Til stede:** Ole Preben Berget, Kjetil Sand, Thomas Jakobsen (Hustuftene), Leif Dalsgaard (vara), Jarle Sæbø (vara)
@@ -127,10 +127,11 @@ Tema: Årsmøte og årsmelding.
 
 ---
 
-**\*Svar fra prosjektet om sprengningen:**
+**Svar fra prosjektet om sprengningen:**
 
 > I utgangspunktet gir vi ingen tilbakemelding etter sprengningsarbeidene. Dette er fordi vi forholder oss til strenge krav for rystelser og da skal det ikke være fare for skade på bygninger over tunneltraseen. For å ha kontroll på rystelsene benytter vi rystelsesmålere for å sjekke at vi hele tiden er innenfor grenseverdien. I Jan Petersens gate og Anton Brøggers gate har det totalt vært montert 13 rystelsesmålere.
 >
 > Det er også gjennomført forhåndsbesiktigelse i en del eiendommer i Jan Pettersens gate. Bildene fra forhåndsbesiktigelsen benyttes i tilfeller der en grunneier melder inn en skade som han mener er en konsekvens av tunnelsprengningen. Da kan vi bruke bildene til å sammenligne før og etter situasjonen. Det kan i slike tilfeller også bli aktuelt med en ny befaring.
 >
 > Det er ikke utført radonmålinger. Prosjektet har vurdert om tunnelarbeidene vil utløse inntrengning av radon. Konklusjonen er at tunnelsprengningen i seg selv øker ikke risikoen for transport av radongass til overflaten. Arbeidene med sprenging av tunnel vil utføres innenfor grenseverdier, og det skal i utgangspunktet ikke forekomme rystelser/vibrasjoner som resulterer i dannelse eller forverring av sprekker i konstruksjoner som er i god stand.
+
