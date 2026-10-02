@@ -29,5 +29,8 @@ layout: base.njk
 	<main class="innhold">
 		<h1 class="side-tittel">{{ title }}</h1>
 		{{ content | safe }}
+		{%- if kilde %}
+		<p class="kilde">Kilde: {{ kilde }}</p>
+		{%- endif %}
 	</main>
 </div>

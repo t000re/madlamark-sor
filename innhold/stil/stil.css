@@ -282,6 +282,9 @@ a { color: inherit; text-underline-offset: 0.15em; text-decoration-thickness: 1p
 }
 .innhold h2 + h3,
 .innhold h3 + h4 { margin-top: 0; }
+/* Hvor et dokument kommer fra, nederst på siden */
+.innhold .kilde { margin-top: 2.5em; font-style: italic; opacity: 0.75; }
+
 /* Tittelen på siden, øverst i innholdet */
 .innhold .side-tittel { margin: 0 0 1.6em; }
 .innhold .side-tittel + * { margin-top: 0; }

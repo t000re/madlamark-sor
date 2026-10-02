@@ -4,12 +4,13 @@ import { tilDato } from "../../lib/dato.js";
 
 // Regler som gjør at en markdown-fil blir en side uten at man trenger å fylle ut noe:
 // - tittel: «tittel» i toppen av filen, ellers første overskrift (# …), ellers filnavnet
-// - dato: «dato» i toppen av filen, ellers dato først i filnavnet (2026-03-16-styremote.md)
+// - dato: «dato» i toppen av filen, ellers dato først i filnavnet (2026-03-16-styremote.md),
+//   ellers «date» i toppen av filen
 // - adresse: /mappe/filnavn/
 export default {
 	title: (data) => data.title || data.tittel || tittelFraFil(data.page),
 
-	dato: (data) => tilDato(data.dato) ?? datoFraFilnavn(data.page),
+	dato: (data) => tilDato(data.dato) ?? datoFraFilnavn(data.page) ?? tilDato(data.date),
 
 	seksjon: (data) => (erInnholdsfil(data.page) ? innholdssti(data.page).split("/")[0] : null),
 

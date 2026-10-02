@@ -45,19 +45,21 @@ export default function (eleventyConfig) {
 
 	eleventyConfig.addFilter("norskDato", norskDato);
 
-	// Deler en liste med sider opp etter år, nyeste år først
+	// Deler en liste med sider opp etter år, nyeste år først. Sider med «gruppe» (f.eks. alt i
+	// mappen tidligere-arsmoter) samles i en egen gruppe med det navnet, etter årene.
 	eleventyConfig.addFilter("grupperPaAar", (sider, aktivUrl) => {
 		const iAar = Number(iDag().slice(0, 4));
 		const grupper = new Map();
 		for (const side of sider) {
-			const aar = side.data.dato ? side.data.dato.getUTCFullYear() : iAar;
-			if (!grupper.has(aar)) grupper.set(aar, []);
-			grupper.get(aar).push(side);
+			const navn = side.data.gruppe || (side.data.dato ? side.data.dato.getUTCFullYear() : iAar);
+			if (!grupper.has(navn)) grupper.set(navn, []);
+			grupper.get(navn).push(side);
 		}
+		const erAar = (navn) => typeof navn === "number";
 		return [...grupper]
-			.sort(([a], [b]) => b - a)
-			.map(([aar, sider]) => ({
-				aar,
+			.sort(([a], [b]) => (erAar(a) && erAar(b) ? b - a : erAar(a) ? -1 : erAar(b) ? 1 : 0))
+			.map(([navn, sider]) => ({
+				aar: navn,
 				sider,
 				aktiv: sider.some((side) => side.url === aktivUrl),
 			}));
