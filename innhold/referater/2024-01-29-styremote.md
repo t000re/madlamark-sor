@@ -1,6 +1,6 @@
 ---
 tittel: Styremøte 29. januar 2024
-dato: 2026-10-02
+dato: 2024-01-29
 ---
 **Tid:** kl. 19.00–20.30
 **Sted:** Jan Anton Stuen
