@@ -92,7 +92,7 @@ content:
         type: rich-text
 
   - name: referater
-    label: Møtereferater
+    label: Årsmøter
     type: collection
     path: innhold/referater
     filename: "{year}-{month}-{day}-{primary}.md"

@@ -5,7 +5,7 @@ rekkefolge: 6
 
 ### Grøntområde for økologi
 
-Etter initiativ fra Ine Holand ble det vedtatt å etablere et område der vi lar gresset gro og skaper et grøntområde for økologi og bærekraft. Se [referat fra møtet om grøntområdet 27. mai 2025](/referater/2025-05-27-mote-om-grontomrade/).
+Etter initiativ fra Ine Holand ble det vedtatt å etablere et område der vi lar gresset gro og skaper et grøntområde for økologi og bærekraft.
 
 ### Andre dokumenter
 

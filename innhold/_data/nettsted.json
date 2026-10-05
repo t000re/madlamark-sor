@@ -3,6 +3,6 @@
 	"beskrivelse": "En digital oppslagstavle for beboerne i velforeningen Madlamark sør.",
 	"meny": [
 		{ "tittel": "Praktisk informasjon til beboere", "mappe": "praktisk-informasjon", "sortering": "rekkefolge" },
-		{ "tittel": "Møtereferater", "mappe": "referater", "sortering": "dato" }
+		{ "tittel": "Årsmøter", "mappe": "referater", "sortering": "dato", "menytekst": "aar", "passord": "9b2cac6189e1ca787faa840283c5f57748e21e390b763b8cd18ad12fa0c52715" }
 	]
 }

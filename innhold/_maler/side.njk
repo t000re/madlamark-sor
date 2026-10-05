@@ -3,12 +3,42 @@ layout: base.njk
 ---
 {%- set sider = collections[seksjon] -%}
 {%- set oppsett = seksjon | seksjonsoppsett -%}
+{%- if oppsett and oppsett.passord %}
+<form class="passord-boks" data-seksjon="{{ seksjon }}" data-hash="{{ oppsett.passord }}">
+	<label for="passord">{{ oppsett.tittel }} er bare for beboerne. Skriv inn passordet:</label>
+	<div class="passord-rad">
+		<input id="passord" type="password" autocomplete="current-password" required>
+		<button type="submit">Åpne</button>
+	</div>
+	<p class="passord-feil" role="alert" hidden>Feil passord. Prøv igjen.</p>
+</form>
+<script src="/skript/passord.js" defer></script>
+{%- endif %}
 {%- macro lenke(side) -%}
 <a href="{{ side.url }}"{% if side.url == page.url %} aria-current="page"{% endif %}>{{ side.data.title }}</a>
 {%- endmacro -%}
 <div class="hoveddel">
-	<nav class="undermeny" aria-label="Undermeny">
-		{%- if oppsett and oppsett.sortering == "dato" %}
+	<nav class="undermeny{% if oppsett and oppsett.menytekst == 'aar' %} aarsliste{% endif %}" aria-label="Undermeny">
+		{%- if oppsett and oppsett.menytekst == "aar" %}
+		{#- Én side per år: menyen viser bare årstallene, nyeste først.
+		    Sider med «gruppe» (f.eks. tidligere årsmøter) samles i en egen gruppe som kan åpnes og lukkes. #}
+		{%- for gruppe in sider | grupperPaAar(page.url) %}
+		{%- if gruppe.aar is number %}
+		{%- for side in gruppe.sider %}
+		<a href="{{ side.url }}"{% if side.url == page.url %} aria-current="page"{% endif %}>{{ side.data.dato.getUTCFullYear() }}</a>
+		{%- endfor %}
+		{%- else %}
+		<details class="aargruppe"{% if gruppe.aktiv %} open{% endif %}>
+			<summary>{{ gruppe.aar }}</summary>
+			<div class="aargruppe-sider">
+				{%- for side in gruppe.sider %}
+				<a href="{{ side.url }}"{% if side.url == page.url %} aria-current="page"{% endif %}>{{ side.data.dato.getUTCFullYear() }}</a>
+				{%- endfor %}
+			</div>
+		</details>
+		{%- endif %}
+		{%- endfor %}
+		{%- elif oppsett and oppsett.sortering == "dato" %}
 		{#- Sider med dato grupperes på år, som kan åpnes og lukkes. Året man er inne i, er åpent. #}
 		{%- for gruppe in sider | grupperPaAar(page.url) %}
 		<details class="aargruppe"{% if gruppe.aktiv %} open{% endif %}>

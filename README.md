@@ -8,7 +8,7 @@ En enkel nettside laget med [11ty](https://www.11ty.dev). Alt innhold er vanlige
 innhold/
   aktuelt/                 Saker på forsiden (forsvinner av seg selv når datoen er passert)
   praktisk-informasjon/    Sidene under «Praktisk informasjon til beboere»
-  referater/               Sidene under «Møtereferater» (nyeste øverst)
+  referater/               Sidene under «Årsmøter» (nyeste øverst)
   filer/                   PDF-er og bilder
   _data/nettsted.json      Navnet på siden og hovedmenyen
   stil/stil.css            Farger, skrift og størrelser
@@ -129,4 +129,4 @@ Første gang: på GitHub, gå til **Settings → Pages** og velg **Source: GitHu
 
 ## Skrift
 
-Siden bruker Akkurat. Den vises bare for de som har skriften installert, alle andre ser reserveskriften Inter. For at alle skal se Akkurat, trengs en nettlisens fra Lineto. Legg da `.woff2`-filene i `innhold/stil/fonter/` og legg til en `@font-face` øverst i `stil.css`.
+Siden bruker skriften Inter, som ligger i `innhold/stil/fonter/`. Den lastes fra nettsiden selv, så alle ser samme skrift uansett hva de har installert.

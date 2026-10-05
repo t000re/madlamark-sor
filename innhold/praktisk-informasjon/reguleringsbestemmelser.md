@@ -3,15 +3,11 @@ tittel: Reguleringsbestemmelser
 rekkefolge: 1
 ---
 
-Reguleringsbestemmelsene sist oppdatert 24. august 2023. Last ned PDF-filen eller les bestemmelsene under.
-
-[2296 bestemmelser vedtatt 24.08.23 (PDF)](/filer/reguleringsbestemmelser-2296-vedtatt-2023-08-24.pdf)
-
-### § 1. Formål
+## 1. Formål
 
 Planens hovedmål er å sikre bebyggelsens høye kvalitet og legge føringer for videre utvikling av området. Hele planområdet vises som hensynssone for kulturmiljø.
 
-### § 2. Fellesbestemmelser
+## 2. Fellesbestemmelser
 
 Alle utvendige endringer av bygningene og tiltak på fellesområdene utover hva som er beskrevet i reguleringsbestemmelsene skal forelegges byantikvaren og godkjennes av kommunen.
 
@@ -20,10 +16,9 @@ Det tillates ikke flere enn én boenhet i hver bolig.
 *Gjenreising ved brann*
 - Ved brann skal boligene oppføres som opprinnelig, men endringer i tråd med bestemmelsene nedenfor tillates.
 
-### § 3. Bebyggelse og anlegg
+## 3. Bebyggelse og anlegg
 
 **Felt B1. Kjedehusbebyggelse**
-
 *Boligene*
 - Boligene tillates ikke revet.
 - Boligene kan kun unntaksvis utvides eller endres i strid med opprinnelige tegninger:
@@ -42,7 +37,7 @@ Det tillates ikke flere enn én boenhet i hver bolig.
 - Dersom det ikke er tilstrekkelig tetning fra mønestein til kledning skal et aluminiumsbeslag leveres ferdig lakkert med farge i gitt RAL-kode som tilsvarer fasadefargen.
 - Inngangsdør kan enten være som opprinnelig dør med stort glass med 110mm ramme, eller som tett dør med stående panel ca. 110mm bredde. Sidefelt i glass skal beholdes. Dører skal ha farge som kledning eller jordfarge eller en dempet farge som matcher, [se vedlegg 1](/filer/vedlegg-1-losning-for-pergola-og-eksempler-pa-ytterdorer.pdf).
 
-### Fargesetting
+## Fargesetting
 
 **Anton Brøggers gate**
 

@@ -7,6 +7,14 @@
 	<meta name="description" content="{{ nettsted.beskrivelse }}">
 	<link rel="stylesheet" href="/stil/stil.css">
 	<script src="/skript/topphoyde.js" defer></script>
+	<script src="/skript/bildevisning.js" defer></script>
+	{%- set laas = (seksjon | seksjonsoppsett).passord if seksjon else null %}
+	{%- if laas %}
+	{#- Enkel passordsperre: innholdet skjules til passordet er skrevet inn. Det er ikke ekte sikring,
+	    innholdet ligger fortsatt i sidens kode og i det offentlige GitHub-prosjektet. #}
+	<meta name="robots" content="noindex, nofollow">
+	<script>try { if (localStorage.getItem("laast-opp-{{ seksjon }}") !== "{{ laas }}") document.documentElement.classList.add("laast"); } catch (e) { document.documentElement.classList.add("laast"); }</script>
+	{%- endif %}
 </head>
 <body>
 	<header class="topp">

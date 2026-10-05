@@ -7,8 +7,9 @@
 	--rust: #a75235;     /* hovedmeny */
 	--oransje: #f46012;  /* aktuelt */
 	--gronn: #435d28;    /* brødtekst */
+	--overskrift: #4a2012; /* overskrifter i innholdet */
 
-	--skrift: "Akkurat", "Akkurat Std", "Inter", system-ui, sans-serif;
+	--skrift: "Inter", system-ui, sans-serif;
 	--stor: 28px;        /* hovedmeny og aktuelt */
 	--middels: 19px;     /* undermeny og mellomtitler */
 	--liten: 16px;       /* brødtekst */
@@ -20,9 +21,7 @@
 	--tekstbredde: 512px;
 }
 
-/* Reserveskrift for de som ikke har Akkurat installert.
-   Når foreningen har en nettlisens for Akkurat, legg filene i stil/fonter/
-   og legg til en @font-face for «Akkurat» her. */
+/* Inter ligger på serveren vår, så alle ser samme skrift. */
 @font-face {
 	font-family: "Inter";
 	src: url("fonter/inter.woff2") format("woff2");
@@ -279,9 +278,44 @@ a { color: inherit; text-underline-offset: 0.15em; text-decoration-thickness: 1p
 	font-size: var(--middels);
 	font-weight: normal;
 	line-height: 1.25;
+	color: var(--overskrift);
 }
 .innhold h2 + h3,
 .innhold h3 + h4 { margin-top: 0; }
+
+/* Overskriftsnivåene skiller seg i størrelse; h4 er like stor som brødteksten, men halvfet */
+.innhold h1 { font-size: calc(var(--middels) * 1.45); }
+.innhold h2 { font-size: calc(var(--middels) * 1.2); }
+.innhold h3 { font-size: var(--middels); }
+.innhold h4 { font-size: var(--liten); font-weight: 600; }
+/* Tittelen øverst er størst, og litt fetere enn de andre overskriftene */
+.innhold h1.side-tittel { font-size: calc(var(--middels) * 1.7); font-weight: 500; line-height: 1.15; }
+/* Bilder i innholdet kan klikkes for å se dem større (se skript/bildevisning.js) */
+.innhold img { cursor: zoom-in; }
+.bildevisning {
+	max-width: none;
+	max-height: none;
+	width: 100vw;
+	height: 100vh;
+	margin: 0;
+	padding: 24px;
+	border: 0;
+	background: rgb(242 242 230 / 0.96);
+	cursor: zoom-out;
+}
+.bildevisning::backdrop { background: transparent; }
+.bildevisning img {
+	display: block;
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: 100%;
+	margin: auto;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
 /* Hvor et dokument kommer fra, nederst på siden */
 .innhold .kilde { margin-top: 2.5em; font-style: italic; opacity: 0.75; }
 
@@ -323,6 +357,42 @@ a { color: inherit; text-underline-offset: 0.15em; text-decoration-thickness: 1p
 	font-weight: normal;
 }
 .innhold thead th { border-bottom-color: currentColor; }
+/* Beløp og tall brytes ikke over to linjer. Brede tabeller får bruke den ledige plassen
+   til høyre for tekstkolonnen (på mobil kan de rulles sidelengs, se nederst). */
+.innhold table {
+	width: max-content;
+	min-width: 100%;
+	max-width: calc(100vw - var(--venstre) - 3 * var(--marg));
+}
+.innhold td:not(:first-child) { white-space: nowrap; }
+.innhold th { min-width: 4.5em; }
+
+/* ---------- Passordsperre (se skript/passord.js) ---------- */
+
+.passord-boks { display: none; }
+.laast .passord-boks {
+	display: block;
+	max-width: var(--tekstbredde);
+	margin: 82px 0 0 var(--venstre);
+	color: var(--gronn);
+	font-size: var(--liten);
+}
+.laast .hoveddel { display: none; }
+.passord-boks label { display: block; margin-bottom: 12px; color: var(--overskrift); font-size: var(--middels); }
+.passord-rad { display: flex; gap: 8px; }
+.passord-boks input,
+.passord-boks button {
+	padding: 8px 10px;
+	border: 1px solid var(--gronn);
+	border-radius: 0;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+}
+.passord-boks input { flex: 1; min-width: 0; }
+.passord-boks button { cursor: pointer; }
+.passord-boks button:hover { background: var(--gronn); color: var(--bakgrunn); }
+.passord-feil { margin: 10px 0 0; color: var(--rust); }
 
 /* ---------- Fast meny på store skjermer ----------
    Toppen og undermenyen blir stående, og bare innholdet ruller. */
@@ -354,6 +424,9 @@ a { color: inherit; text-underline-offset: 0.15em; text-decoration-thickness: 1p
 		padding: 52px 0 1.2em;
 		margin-bottom: 0.4em;
 		background: var(--bakgrunn);
+		/* Bakgrunnen strekkes ut til høyre, så brede tabeller ikke synes ved siden av tittelen */
+		box-shadow: 0 0 0 100vmax var(--bakgrunn);
+		clip-path: inset(0 -100vmax 0 -24px); /* litt til venstre også, for tallene i nummererte lister */
 	}
 
 	.undermeny {
@@ -422,6 +495,18 @@ a { color: inherit; text-underline-offset: 0.15em; text-decoration-thickness: 1p
 	}
 
 	.aargruppe-sider { gap: 14px; margin: 14px 0 16px; }
+
+	/* Årstallene står i et rutenett i stedet for en lang liste */
+	.undermeny.aarsliste,
+	.aarsliste .aargruppe-sider {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+		gap: 12px 8px;
+	}
+	.aarsliste .aargruppe { grid-column: 1 / -1; margin-top: 8px; }
+	.aarsliste .aargruppe-sider { padding-left: 0; }
+
+	.laast .passord-boks { margin: 40px 0 0; }
 
 	.innhold { font-size: 16px; line-height: 1.35; }
 
