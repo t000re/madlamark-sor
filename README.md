@@ -108,7 +108,7 @@ Tekst …
 Legg filen i `innhold/filer/` og lenk til den slik:
 
 ```markdown
-[Referat fra årsmøtet (PDF)](/filer/arsmote-2025-referat.pdf)
+[Referat fra årsmøtet (PDF)](/filer/arsmote-2026-referat.pdf)
 
 ![Beskrivelse av bildet](/filer/bilde.jpg)
 ```

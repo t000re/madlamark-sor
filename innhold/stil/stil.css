@@ -21,18 +21,18 @@
 	--tekstbredde: 512px;
 }
 
-/* Inter ligger på serveren vår, så alle ser samme skrift. */
+/* Inter ligger på serveren vår, så alle ser samme skrift. Filene er variable og har alle vekter fra 100 til 900. */
 @font-face {
 	font-family: "Inter";
 	src: url("fonter/inter.woff2") format("woff2");
-	font-weight: 400 700;
+	font-weight: 100 900;
 	font-style: normal;
 	font-display: swap;
 }
 @font-face {
 	font-family: "Inter";
 	src: url("fonter/inter-kursiv.woff2") format("woff2");
-	font-weight: 400 700;
+	font-weight: 100 900;
 	font-style: italic;
 	font-display: swap;
 }
