@@ -13,7 +13,16 @@ export default function (eleventyConfig) {
 	eleventyConfig.addPassthroughCopy("innhold/skript");
 
 	// Vanlige linjeskift i markdown blir linjeskift på siden, og nettadresser blir lenker
-	eleventyConfig.amendLibrary("md", (md) => md.set({ breaks: true, linkify: true }));
+	eleventyConfig.amendLibrary("md", (md) => {
+		md.set({ breaks: true, linkify: true });
+		// Bilder lastes først når man ruller ned til dem
+		const vanlig = md.renderer.rules.image;
+		md.renderer.rules.image = (tokens, idx, options, env, self) => {
+			tokens[idx].attrSet("loading", "lazy");
+			tokens[idx].attrSet("decoding", "async");
+			return vanlig(tokens, idx, options, env, self);
+		};
+	});
 
 	// En overskrift helt øverst i dokumentet (# Tittel) brukes som tittel, ikke som innhold
 	eleventyConfig.addPreprocessor("fjern-tittel", "md", (data, innhold) => {

@@ -51,8 +51,16 @@ layout: base.njk
 		</details>
 		{%- endfor %}
 		{%- else %}
+		{#- Undersider (f.eks. Uteområder under Inspirasjon) står rykket inn under siden de hører til #}
 		{%- for side in sider %}
+		{%- if not side.data.forelder %}
 		{{ lenke(side) }}
+		{%- for barn in sider %}
+		{%- if barn.data.forelder == side.page.fileSlug %}
+		<a class="undermeny-barn" href="{{ barn.url }}"{% if barn.url == page.url %} aria-current="page"{% endif %}>{{ barn.data.title }}</a>
+		{%- endif %}
+		{%- endfor %}
+		{%- endif %}
 		{%- endfor %}
 		{%- endif %}
 	</nav>

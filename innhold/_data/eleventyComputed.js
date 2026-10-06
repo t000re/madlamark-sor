@@ -12,6 +12,14 @@ export default {
 
 	dato: (data) => tilDato(data.dato) ?? datoFraFilnavn(data.page) ?? tilDato(data.date),
 
+	// En side i en undermappe (praktisk-informasjon/inspirasjon/uteomrader.md) hører under siden
+	// med samme navn som mappen (inspirasjon), og vises rykket inn under den i undermenyen
+	forelder: (data) => {
+		if (!erInnholdsfil(data.page)) return null;
+		const deler = innholdssti(data.page).split("/");
+		return deler.length === 3 ? deler[1] : null;
+	},
+
 	seksjon: (data) => (erInnholdsfil(data.page) ? innholdssti(data.page).split("/")[0] : null),
 
 	permalink: (data) => {
