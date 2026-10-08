@@ -263,6 +263,8 @@ a { color: inherit; text-underline-offset: 0.15em; text-decoration-thickness: 1p
 .undermeny a:hover { text-decoration: underline; }
 
 .undermeny .undermeny-barn { margin-left: 15px; }
+/* Overskrift i undermenyen uten egen side (kun_meny). Åpnes og lukkes med klikk. */
+.menygruppe summary:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
 
 /* Eldre år i undermenyen, som kan åpnes og lukkes */
 .aargruppe-sider { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; margin: 10px 0 15px; padding-left: 15px; }
@@ -418,6 +420,22 @@ a { color: inherit; text-underline-offset: 0.15em; text-decoration-thickness: 1p
 }
 .innhold td:not(:first-child) { white-space: nowrap; }
 .innhold th { min-width: 4.5em; }
+
+/* Knapp, f.eks. for å laste ned originaltegninger */
+.innhold .knapp {
+	display: inline-flex;
+	align-items: center;
+	gap: 14px;
+	padding: 14px 20px;
+	background: #9fa048;
+	color: #2b2a0c;
+	text-decoration: none;
+}
+.innhold .knapp:hover { background: #8f9040; }
+.innhold .knapp svg { width: 22px; height: 22px; fill: currentColor; flex: none; }
+
+/* Høye bilder vises kvadratiske (toppen av bildet) i artikkelen, og i full størrelse ved klikk (se skript/bildevisning.js) */
+.innhold img.hoyt { width: 100%; aspect-ratio: 1; object-fit: cover; object-position: top; }
 
 /* ---------- Passordsperre (se skript/passord.js) ---------- */
 

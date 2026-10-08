@@ -22,6 +22,15 @@ export default function (eleventyConfig) {
 			tokens[idx].attrSet("decoding", "async");
 			return vanlig(tokens, idx, options, env, self);
 		};
+		// Lenker til PDF-er åpnes i en ny fane i stedet for å lastes ned
+		const lenke = md.renderer.rules.link_open ?? ((tokens, idx, options, env, self) => self.renderToken(tokens, idx, options));
+		md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
+			if (/\.pdf($|[?#])/i.test(tokens[idx].attrGet("href") ?? "")) {
+				tokens[idx].attrSet("target", "_blank");
+				tokens[idx].attrSet("rel", "noopener");
+			}
+			return lenke(tokens, idx, options, env, self);
+		};
 	});
 
 	// En overskrift helt øverst i dokumentet (# Tittel) brukes som tittel, ikke som innhold
@@ -36,9 +45,16 @@ export default function (eleventyConfig) {
 			if (seksjon.sortering === "dato") {
 				return sider.sort((a, b) => (b.data.dato ?? 0) - (a.data.dato ?? 0));
 			}
+			// Undersider sorteres sammen med siden de hører til, så de ikke havner foran andre sider
+			const plass = (side) => side.data.rekkefolge ?? 999;
+			const toppside = (side) =>
+				(side.data.forelder && sider.find((s) => s.page.fileSlug === side.data.forelder && !s.data.forelder)) || side;
 			return sider.sort(
 				(a, b) =>
-					(a.data.rekkefolge ?? 999) - (b.data.rekkefolge ?? 999) ||
+					plass(toppside(a)) - plass(toppside(b)) ||
+					toppside(a).data.title.localeCompare(toppside(b).data.title, "nb") ||
+					(a === toppside(a) ? 0 : 1) - (b === toppside(b) ? 0 : 1) ||
+					plass(a) - plass(b) ||
 					a.data.title.localeCompare(b.data.title, "nb")
 			);
 		});

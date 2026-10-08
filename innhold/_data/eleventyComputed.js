@@ -12,8 +12,8 @@ export default {
 
 	dato: (data) => tilDato(data.dato) ?? datoFraFilnavn(data.page) ?? tilDato(data.date),
 
-	// En side i en undermappe (praktisk-informasjon/inspirasjon/uteomrader.md) hører under siden
-	// med samme navn som mappen (inspirasjon), og vises rykket inn under den i undermenyen
+	// En side i en undermappe (praktisk-informasjon/plantegninger-over-hus-og-tilbygg/uteomrader.md) hører
+	// under siden med samme navn som mappen, og vises rykket inn under den i undermenyen
 	forelder: (data) => {
 		if (!erInnholdsfil(data.page)) return null;
 		const deler = innholdssti(data.page).split("/");
@@ -24,6 +24,8 @@ export default {
 
 	permalink: (data) => {
 		if (data.permalink || !erInnholdsfil(data.page)) return data.permalink;
+		// «kun_meny: true» gir bare en overskrift i undermenyen, ingen egen side
+		if (data.kun_meny) return false;
 		const [mappe, ...resten] = innholdssti(data.page).split("/");
 		// Aktuelt-saker får ikke egen side, de vises på forsiden
 		if (mappe === "aktuelt") return false;

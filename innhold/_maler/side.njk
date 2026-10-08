@@ -51,15 +51,31 @@ layout: base.njk
 		</details>
 		{%- endfor %}
 		{%- else %}
-		{#- Undersider (f.eks. Uteområder under Inspirasjon) står rykket inn under siden de hører til #}
+		{#- Undersider (f.eks. Uteområder under Plantegninger) står rykket inn under siden de hører til.
+		    En side med «kun_meny» er bare en overskrift uten lenke. #}
 		{%- for side in sider %}
 		{%- if not side.data.forelder %}
+		{%- if side.data.kun_meny %}
+		{#- Lukket som standard, åpen når man står på en av undersidene #}
+		{%- set apen = (page.url or "").indexOf("/" + seksjon + "/" + side.page.fileSlug + "/") == 0 %}
+		<details class="aargruppe menygruppe"{% if apen %} open{% endif %}>
+			<summary>{{ side.data.title }}</summary>
+			<div class="aargruppe-sider">
+				{%- for barn in sider %}
+				{%- if barn.data.forelder == side.page.fileSlug %}
+				{{ lenke(barn) }}
+				{%- endif %}
+				{%- endfor %}
+			</div>
+		</details>
+		{%- else %}
 		{{ lenke(side) }}
 		{%- for barn in sider %}
 		{%- if barn.data.forelder == side.page.fileSlug %}
 		<a class="undermeny-barn" href="{{ barn.url }}"{% if barn.url == page.url %} aria-current="page"{% endif %}>{{ barn.data.title }}</a>
 		{%- endif %}
 		{%- endfor %}
+		{%- endif %}
 		{%- endif %}
 		{%- endfor %}
 		{%- endif %}

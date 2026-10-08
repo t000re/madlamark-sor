@@ -1,5 +1,6 @@
 ---
 tittel: Uteområder
+rekkefolge: 5
 kilde: "Madlamark – Sør. Planteplaner for hager ved kjedehus. 5 alternativer + detaljtegning basseng. Knut Fosså og Sveinung Skjold, landskapsarkitekter MNLA (skannet hefte)"
 ---
 

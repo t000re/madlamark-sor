@@ -139,4 +139,4 @@ Jotun 682 Kastanje, Butinox 520 Tjærebrun, Butinox 508 Jordbrun, Butinox 509 Ba
 - [Vedlegg 4 – Løsning for bod på hageside (PDF)](/filer/vedlegg-4-losning-for-bod-pa-hageside.pdf)
 - [Vedlegg 5 – Løsning for utvidelse av inngangsparti Hustuftene (PDF)](/filer/vedlegg-5-losning-for-utvidelse-av-inngangsparti-hustuftene.pdf)
 
-Tegningene finnes også under [plantegninger over hus og tilbygg](/praktisk-informasjon/plantegninger-over-hus-og-tilbygg/).
+Omtegnede tegninger og originaler finnes også under [pergola](/praktisk-informasjon/plantegninger-over-hus-og-tilbygg/pergola/), [bod på inngangsside](/praktisk-informasjon/plantegninger-over-hus-og-tilbygg/bod-pa-inngangsside/) og [bod på hageside](/praktisk-informasjon/plantegninger-over-hus-og-tilbygg/bod-pa-hageside/).

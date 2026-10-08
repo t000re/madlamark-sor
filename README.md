@@ -103,6 +103,19 @@ rekkefolge: 7
 Tekst …
 ```
 
+### Undersider
+
+En side kan ha undersider. Lag en mappe med samme navn som siden, og legg undersidene der. De vises rykket inn under siden i menyen, sortert etter `rekkefolge`:
+
+```
+plantegninger-over-hus-og-tilbygg.md
+plantegninger-over-hus-og-tilbygg/
+  plantegning-hus.md
+  pergola.md
+```
+
+Skriv `kun_meny: true` i toppen av siden hvis den bare skal være en overskrift i menyen, uten egen side.
+
 ## Bilder og PDF-er
 
 Legg filen i `innhold/filer/` og lenk til den slik:
